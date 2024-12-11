@@ -14,7 +14,7 @@ public:
     Pokemon() : hp(0), atk(0), def(0), nombre("") {}
 
     // Constructor amb paràmetres
-   //    Els primers paràmetres són els que es reben de fora i després s’especifica on va cada paràmetre
+   // Els primers paràmetres són els que es reben de fora i després s’especifica on va cada paràmetre
     Pokemon(int _hp, int _atk, int _def, const string& _nombre)
         : hp(_hp), atk(_atk), def(_def), nombre(_nombre) {}
 
@@ -34,8 +34,8 @@ public:
     int getDebilidad() const { return debilidad; }
 
     // Mètode per mostrar informació del Pokémon
-    //  La paraula const declara que es tracta d’un valor que no es pot modificar
-    //  virtual ens indica que mostrarà dades d’una classe de la qual deriva aquesta
+    // La paraula const declara que es tracta d’un valor que no es pot modificar
+    // virtual ens indica que mostrarà dades d’una classe de la qual deriva aquesta
     virtual void mostrarInfo() const {
         cout << "Nom: " << nombre << "\n"
             << "HP: " << hp << "\n"
@@ -87,3 +87,63 @@ public:
         cout << "Habilitat: " << habilidad << "\n";
     }
 };
+
+// Definició de la Linked List
+class Baraja {
+private:
+    struct Node {
+        Pokemon* carta;
+        Node* next;
+    };
+
+    Node* head;
+
+public:
+    Baraja() : head(nullptr) {}
+
+    // Mètode per afegir una carta a la baralla
+    void afegirCarta(Pokemon* carta) {
+        Node* newNode = new Node;
+        newNode->carta = carta;
+        newNode->next = head;
+        head = newNode;
+    }
+
+    // Mètode per mostrar tota la baralla
+    void mostrarBaraja() const {
+        Node* current = head;
+        while (current != nullptr) {
+            current->carta->mostrarInfo();
+            cout << "--------------------" << endl;
+            current = current->next;
+        }
+    }
+
+    // Destructor per netejar la memòria
+    ~Baraja() {
+        Node* current = head;
+        while (current != nullptr) {
+            Node* temp = current;
+            current = current->next;
+            delete temp->carta; // Elimina el Pokémon
+            delete temp; // Elimina el node
+        }
+    }
+};
+
+int main() {
+    // Crear algunes cartes de Pokémon
+    CartaTipoFuego* cartaFuego = new CartaTipoFuego(100, 50, 30, "Charizard", "Llamarada");
+    CartaTipoAgua* cartaAgua = new CartaTipoAgua(90, 40, 40, "Blastoise", "Hidrobomba");
+
+    // Crear la baralla i afegir les cartes
+    Baraja baraja;
+    baraja.afegirCarta(cartaFuego);
+    baraja.afegirCarta(cartaAgua);
+
+    // Mostrar la baralla
+    baraja.mostrarBaraja();
+
+    // La memòria es neteja automàticament al final del programa
+    return 0;
+}
