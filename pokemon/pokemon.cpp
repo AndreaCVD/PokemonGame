@@ -61,7 +61,7 @@ public:
         cout << "[Carta de Tipus " << tipo << "]" << endl;
         Pokemon::mostrarInfo();
         cout << "Tipus: " << tipo << "\n";
-        cout << "Dèbil contra: " << debilidadTipo << " (+" << getDebilidad() << " dany extra)\n";
+        cout << "Debil contra: " << debilidadTipo << " (+" << getDebilidad() << " dany extra)\n";
         cout << "Habilitat: " << habilidad << "\n";
     }
 };
@@ -69,7 +69,7 @@ public:
 class CartaTipoAgua : public Pokemon {
 private:
     const string tipo = "Aigua";
-    const string debilidadTipo = "Elèctric"; // Dèbil contra tipus Elèctric
+    const string debilidadTipo = "Electric"; // Dèbil contra tipus Elèctric
     string habilidad;
 
 public:
@@ -83,10 +83,53 @@ public:
         cout << "[Carta de Tipus " << tipo << "]" << endl;
         Pokemon::mostrarInfo();
         cout << "Tipus: " << tipo << "\n";
-        cout << "Dèbil contra: " << debilidadTipo << " (+" << getDebilidad() << " dany extra)\n";
+        cout << "Debil contra: " << debilidadTipo << " (+" << getDebilidad() << " dany extra)\n";
         cout << "Habilitat: " << habilidad << "\n";
     }
 };
+
+class CartaTipoPlanta : public Pokemon {
+private:
+    const string tipo = "Planta";
+    const string debilidadTipo = "Fuego"; // Dèbil contra tipus Fuego
+    string habilidad;
+
+
+public:
+    CartaTipoPlanta(int hp, int atk, int def, const string& nombre, const string& habilidad)
+        : Pokemon(hp, atk, def, nombre), habilidad(habilidad) {}
+
+
+    void mostrarInfo() const override {
+        cout << "[Carta de Tipo " << tipo << "]" << endl;
+        Pokemon::mostrarInfo();
+        cout << "Tipo: " << tipo << "\n";
+        cout << "Debil contra: " << debilidadTipo << " (+" << getDebilidad() << " dany extra)\n";
+        cout << "Habilitat: " << habilidad << "\n";
+    }
+};
+
+class CartaTipoElectric : public Pokemon {
+private:
+    const string tipo = "Electric";
+    const string debilidadTipo = "Pedra"; // Dèbil contra tipus Pedra
+    string habilidad;
+
+
+public:
+    CartaTipoElectric(int hp, int atk, int def, const string& nombre, const string& habilidad)
+        : Pokemon(hp, atk, def, nombre), habilidad(habilidad) {}
+
+
+    void mostrarInfo() const override {
+        cout << "[Carta de Tipo " << tipo << "]" << endl;
+        Pokemon::mostrarInfo();
+        cout << "Tipo: " << tipo << "\n";
+        cout << "Debil contra: " << debilidadTipo << " (+" << getDebilidad() << " dany extra)\n";
+        cout << "Habilitat: " << habilidad << "\n";
+    }
+};
+
 
 // Definició de la Linked List
 class Baraja {
@@ -135,11 +178,15 @@ int main() {
     // Crear algunes cartes de Pokémon
     CartaTipoFuego* cartaFuego = new CartaTipoFuego(100, 50, 30, "Charizard", "Llamarada");
     CartaTipoAgua* cartaAgua = new CartaTipoAgua(90, 40, 40, "Blastoise", "Hidrobomba");
+    CartaTipoPlanta* cartaPlanta = new CartaTipoPlanta(110, 30, 50, "Venusaur", "Energibola");
+    CartaTipoElectric* cartaElectric = new CartaTipoElectric(70, 60, 20, "Pikachu", "Bola Voltio");
 
     // Crear la baralla i afegir les cartes
     Baraja baraja;
     baraja.afegirCarta(cartaFuego);
     baraja.afegirCarta(cartaAgua);
+    baraja.afegirCarta(cartaPlanta);
+    baraja.afegirCarta(cartaElectric);
 
     // Mostrar la baralla
     baraja.mostrarBaraja();
